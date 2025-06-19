@@ -1,5 +1,13 @@
 # Changelog
 
+## 2025-06-19
+
+### Changed
+- Migrated build process from semantic search/embeddings to FlexSearch keyword index.
+- Removed all embedding logic and dependencies from build scripts.
+- Build now outputs `flexsearch.json` containing both post metadata and exported FlexSearch index for fast client-side loading.
+- Updated types to remove embedding-related fields and add types for FlexSearch-based indexing.
+
 ## 2025-06-18
 
 ### Changed

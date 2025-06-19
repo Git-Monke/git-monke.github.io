@@ -1,7 +1,19 @@
 import { Input } from "@/components/ui/input";
 import { BlogPostsArea } from "./BlogPostsArea";
+import { useState } from "react";
+import { useEntries } from "@/contexts/usePosts";
 
 export function HomeHeader() {
+  const [searchValue, setSearchValue] = useState("");
+  const { searchPosts } = useEntries();
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      searchPosts(searchValue);
+      setSearchValue(""); // Optionally clear input after search
+    }
+  }
+
   return (
     <header className="w-full flex flex-col items-center mt-16 mb-12 px-4 gap-16">
       <div className="flex flex-col gap-4">
@@ -19,6 +31,9 @@ export function HomeHeader() {
           placeholder="Search posts, technologies, or concepts..."
           className="w-full text-lg p-6 bg-card"
           aria-label="Semantic search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <BlogPostsArea />
       </div>

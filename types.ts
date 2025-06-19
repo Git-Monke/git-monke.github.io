@@ -12,8 +12,16 @@ export interface Post {
   content: string;
 }
 
-export interface PostWithEmbedding extends PostMeta {
+export interface PostForIndex extends PostMeta {
   filename: string;
-  embedding: number[][];
   content: string; // cleaned, meaningful content for keyword search
+}
+
+export interface FlexsearchExportedIndex {
+  [key: string]: any;
+}
+
+export interface FlexsearchBuildOutput {
+  posts: PostForIndex[];
+  index: FlexsearchExportedIndex;
 }

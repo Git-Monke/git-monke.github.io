@@ -5,6 +5,7 @@ import { BlogPostDisplay } from "./components/BlogPostDisplay";
 
 import { useEntries } from "./contexts/usePosts";
 import { useEffect, useState } from "react";
+import { ThemeProvider } from "./components/theme-provider";
 
 function AppContent() {
   const { selectedPost, fetchPosts, searchPosts } = useEntries();
@@ -54,7 +55,11 @@ function AppContent() {
 }
 
 export function App() {
-  return <AppContent />;
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
 }
 
 export default App;

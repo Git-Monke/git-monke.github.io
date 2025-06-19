@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "filename": "2025-06-18.md",
+      "date": "2025-06-18T00:00:00.000Z",
+      "title": "Building Semantic Search for My Blog: A Day of Embeddings and UX Polish",
+      "description": "Implementing semantic search with vector embeddings, and creating a polished search experience for my personal blog",
+      "tags": [
+        "react",
+        "typescript",
+        "tailwind",
+        "shadcn/ui",
+        "ai"
+      ],
+      "content": "problem vision wanted semantic search system beyond simple keyword matching so anyone site find relevant posts without knowing exactly ask for. google lots data work off of, don't, so things purely mathematically. however, pure keyword matching isn't great searching way. so semantic searching perfect. technical foundation first thing find, seems best browser. so first thing project set build script runs readme files encodes semantic meanig so later query against encoded meanings model. worked ok... main problem use 20mb model browser anything large slow download, amount context work small. chunking breakthrough switching 40-80 word chunks, markdown characters filler words removed, gave 'search engine' work with. instead trying encode 300 words 300 data points, encode 80 so. accurate results ensued. though wasn't perfect. single word searches didn't always work. hybrid search implementation semantic model worked encoding data list 384 numbers. then, when user types search, run search model use standard cosine simliarity algorithm find similar results. worked alright well, fell short single word searches unusual terms tailwind shadcnui ux interaction design bit ux ui design. went large title hero text, search bar underneath list cards. when type search result, submits search, runs code, returns filtered results. nothing crazy. made search auto clear, everything relies upon constisent style defined index.css file. component state architecture project structure, simple breakdown header, searchbar, blogpostcards, blogpostarea. useposts hook uses zustand central state management. visual polish animations plan using framer motion animate everything soon! key lessons learned learned ton today. learned using ai models browser nodejs project using transformers.js. gained experience design i've designed blog site. bunch debugging trying figure why models wouldn't load turns issue vite, solution either turn off browser caching when using vite dev build project serve using different tool??. fun!"
+    }
+  ],
+  "index": "title.1.map"
+}

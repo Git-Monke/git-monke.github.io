@@ -5,10 +5,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-import { type PostWithEmbedding } from "types";
+import { type PostForIndex } from "types";
 
 type BlogPostCardProps = {
-  post: PostWithEmbedding;
+  post: PostForIndex;
 };
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
