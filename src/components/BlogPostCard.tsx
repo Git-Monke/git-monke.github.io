@@ -11,9 +11,11 @@ type BlogPostCardProps = {
   post: PostForIndex;
 };
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { useEntries } from "@/contexts/usePosts";
 import { useState } from "react";
+import { IconMap } from "@/utils/IconMap";
+import { Frown } from "lucide-react";
+import React from "react";
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
   const [hovered, setHovered] = useState(false);
@@ -33,13 +35,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
         <CardDescription className="flex flex-col">
           <div className="text-neutral flex gap-2 items-center flex-wrap">
             <span>{new Date(post.date).toLocaleDateString()}</span>
-            <div className="flex gap-1 flex-wrap">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="capitalize">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
+            <BlogPostTags tags={post.tags} />
           </div>
           <motion.div
             initial={false}
@@ -57,5 +53,55 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
         </CardDescription>
       </CardHeader>
     </Card>
+  );
+}
+
+function BlogPostTags({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1">
+      {tags.map((tag) => {
+        return <StackItem key={tag} name={tag} />;
+      })}
+    </div>
+  );
+}
+
+function StackItem({ name }: { name: string }) {
+  const IconComponent =
+    name.toLowerCase() in IconMap
+      ? IconMap[name.toLowerCase()]
+      : () => <Frown size={12} />;
+
+  return (
+    <motion.div
+      whileHover="animate"
+      whileTap="animate"
+      initial="initial"
+      className="flex items-start justify-start rounded-full text-xs p-1 -mr-2 hover:z-10 bg-primary shadow-lg"
+    >
+      <motion.span
+        variants={{
+          animate: { paddingRight: 2 },
+        }}
+        transition={{
+          type: "spring",
+        }}
+        className="w-4 h-4 shrink-0 text-center flex items-center justify-center text-foreground"
+      >
+        <div className="w-3.5 h-3.5 flex items-center justify-center">
+          <IconComponent size={14} />
+        </div>
+      </motion.span>
+      <motion.span
+        variants={{
+          initial: { width: 0 },
+          animate: { width: "auto" },
+          exit: { width: 0 },
+        }}
+        className="overflow-hidden whitespace-nowrap text-foreground"
+      >
+        {name}
+      </motion.span>
+    </motion.div>
   );
 }

@@ -1,5 +1,30 @@
 # Changelog
 
+## 2025-06-21
+
+### Added
+- Added technology icons to blog post tags using simple-icons library.
+- Implemented "Showing results for X" feature with clear button below search input.
+- Created IconMap utility to map tag names to technology icons.
+- Added fallback icon display (Frown) when a matching icon isn't found.
+
+### Improved
+- Enhanced tag hover animation with consistent icon sizing and better transitions.
+- Fixed search UI with clearer visual feedback on current search query.
+- Optimized tag rendering for better performance and consistency.
+
+## 2025-06-20
+
+### Added
+- Added smooth animation to BlogPostDisplay with Framer Motion, creating a seamless transition when blog posts change.
+- Created specialized BlogPostTags component with interactive, expanding tags that reveal their full text on hover.
+- Implemented animated tag overlap with single-character display that expands on hover to show full tag name.
+
+### Changed
+- Fixed markdown rendering in dark mode by updating typography classes and removing conflicting styles.
+- Improved FlexSearch implementation by rebuilding the index on the client side instead of using the exported index.
+- Updated BlogPostCard to use the new tag animation system for better visual feedback.
+
 ## 2025-06-19
 
 ### Changed
@@ -7,6 +32,9 @@
 - Removed all embedding logic and dependencies from build scripts.
 - Build now outputs `flexsearch.json` containing both post metadata and exported FlexSearch index for fast client-side loading.
 - Updated types to remove embedding-related fields and add types for FlexSearch-based indexing.
+- Updated all components to use PostForIndex instead of PostWithEmbedding.
+- Improved search implementation in usePosts.tsx with more reliable state updates using Zustand callback form.
+- Refactored BlogPostDisplay to use direct ReactMarkdown with proper theme support.
 
 ## 2025-06-18
 
