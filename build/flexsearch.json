@@ -18,6 +18,7 @@
       "filename": "2025-06-19.md",
       "title": "Upgrading to FlexSearch and Adding UI Refinements",
       "date": "2025-06-19T00:00:00.000Z",
+      "description": "Migrated to pure flex-search, implemented little tags, improved search UX, and struggled with getting GitHub Pages to serve md files.",
       "tags": [
         "react",
         "typescript",
@@ -25,8 +26,7 @@
         "shadcn/ui",
         "simple-icons"
       ],
-      "description": "test",
-      "content": "migrating semantic search flexsearch messing around semantic search yestarday, realized running encoder browser simply not powerful enough give satisfying search results. rent server run dedicated cpugpu larger model worth it. don't plan spending money yet, imagine people looking blog know they're looking for, i'm opting just having tags basic keyword search. that's why migrated flexsearch. blog post pre-parsed remove stopwords markdown syntax. however, just load create local flexsearch document search queried instead. simpler work with, gives good results. means will not benefits semantic search system, so people will know want find spelt right, fine now. implementing technology tag icons added nice little tech tag icons too. post few tags represent technologies used post, i'm going so when click filters posts technologies. perfect anyone curious experience with. nice transition everything! search ux added basic ux features. search bar, bit text comes down tells last query are, little x button clearing search. animates down smooth way. overall, happy it. improving accessibility theme support switched entire website darkmode orange tint. colors look nice. deployment started working setting github pages deployment, github refuses serve markdown files. i'm going figure either around whatever causing this, serve blog somewhere else."
+      "content": "https:www.youtube.comembed6eqxrjksctc migrating semantic search flexsearch messing around semantic search yestarday, realized running encoder browser simply not powerful enough give satisfying search results. rent server run dedicated cpugpu larger model worth it. don't plan spending money yet, imagine people looking blog know they're looking for, i'm opting just having tags basic keyword search. that's why migrated flexsearch. blog post pre-parsed remove stopwords markdown syntax. however, just load create local flexsearch document search queried instead. simpler work with, gives good results. means will not benefits semantic search system, so people will know want find spelt right, fine now. implementing technology tag icons added nice little tech tag icons too. post few tags represent technologies used post, i'm going so when click filters posts technologies. perfect anyone curious experience with. nice transition everything! search ux added basic ux features. search bar, bit text comes down tells last query are, little x button clearing search. animates down smooth way. overall, happy it. improving accessibility theme support switched entire website darkmode orange tint. colors look nice. deployment started working setting github pages deployment, github refuses serve markdown files. i'm going figure either around whatever causing this, serve blog somewhere else."
     }
   ],
   "index": "title.1.map"

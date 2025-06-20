@@ -21,8 +21,8 @@ import FlexSearch from "flexsearch";
 const POSTS_DIR = path.join(
   path.dirname(new URL(import.meta.url).pathname),
   "..",
-  "public",
-  "posts",
+  "docs",
+  "assets",
 );
 
 /**

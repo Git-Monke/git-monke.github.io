@@ -43,7 +43,7 @@ export function BlogPostDisplay({ data }: BlogPostDisplayProps) {
       return;
     }
 
-    fetch(`/assets/${selectedPost.filename}`)
+    fetch(`/docs/assets/${selectedPost.filename}`)
       .then((res) => res.text())
       .then((raw) => {
         const content = raw.replace(/^---[\s\S]*?---/, "").trim();
