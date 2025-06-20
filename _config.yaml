@@ -1,0 +1,4 @@
+include:
+  - docs/assets/*.md
+  - assets/*.md
+  - "*.md"
