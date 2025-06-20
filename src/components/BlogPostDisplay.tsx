@@ -4,6 +4,28 @@ import { type PostForIndex } from "types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { motion, AnimatePresence } from "framer-motion";
+import { Separator } from "./ui/separator";
+
+// YouTube embed component
+function YouTubeEmbed({ url }: { url: string }) {
+  // Extract the video ID from the URL
+  const match = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/,
+  );
+  const videoId = match ? match[1] : null;
+  if (!videoId) return <a href={url}>{url}</a>;
+  return (
+    <div className="relative w-full pt-[56.25%] my-6">
+      <iframe
+        className="absolute top-0 left-0 w-full h-full rounded-md shadow-md"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
+}
 
 type BlogPostDisplayProps = {
   data: PostForIndex;
@@ -72,8 +94,9 @@ export function BlogPostDisplay({ data }: BlogPostDisplayProps) {
         >
           {new Date(data.date).toLocaleDateString()}
         </motion.div>
+        <Separator></Separator>
         <motion.div
-          className="prose max-w-none text-left dark:prose-invert"
+          className="prose max-w-none text-left dark:prose-invert prose-img:rounded-md prose-img:shadow-md prose-img:my-4"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
@@ -100,6 +123,33 @@ export function BlogPostDisplay({ data }: BlogPostDisplayProps) {
               h6: ({ node, ...props }) => (
                 <h6 className="text-xs font-medium mt-2 mb-1" {...props} />
               ),
+              img: ({ node, ...props }) => (
+                <img
+                  className="rounded-md shadow-md my-4 max-w-full mx-auto"
+                  loading="lazy"
+                  {...props}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.alt = `Failed to load image: ${target.alt || "unknown"}`;
+                  }}
+                />
+              ),
+              a: ({ href = "", children, ...props }) => {
+                if (href.includes("youtube.com") || href.includes("youtu.be")) {
+                  return <YouTubeEmbed url={href} />;
+                }
+                return (
+                  <a
+                    href={href}
+                    {...props}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                );
+              },
               ul: ({ node, ...props }) => (
                 <ul className="list-disc ml-6 my-2" {...props} />
               ),

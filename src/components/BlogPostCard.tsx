@@ -15,7 +15,6 @@ import { useEntries } from "@/contexts/usePosts";
 import { useState } from "react";
 import { IconMap } from "@/utils/IconMap";
 import { Frown } from "lucide-react";
-import React from "react";
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
   const [hovered, setHovered] = useState(false);

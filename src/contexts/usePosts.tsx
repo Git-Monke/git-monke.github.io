@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import FlexSearch, { type Document } from "flexsearch";
-import { type PostForIndex, type FlexsearchExportedIndex } from "types";
+import { type PostForIndex } from "types";
 
 interface UsePostsStore {
   entries: PostForIndex[];
@@ -10,7 +10,7 @@ interface UsePostsStore {
   isSearching: boolean;
   error: string | null;
   searchQuery: string;
-  flexIndex: Index | null;
+  flexIndex: Document | null;
 
   fetchPosts: () => Promise<void>;
   searchPosts: (query: string) => Promise<void>;
@@ -93,17 +93,17 @@ export const useEntries = create<UsePostsStore>((set, get) => ({
     }
     const result = flexIndex.search(query, { enrich: true });
     const foundFilenames: string[] = [];
-    console.log(result);
 
-    // Each fieldResult.result is an array of filenames (strings)
+    // Process the enriched search results
     for (const fieldResult of result) {
-      for (const filename of fieldResult.result as string[]) {
+      for (const hit of fieldResult.result) {
+        // Extract the id (filename) from each hit object
+        const filename = typeof hit === "string" ? hit : hit.id.toString();
         if (!foundFilenames.includes(filename)) {
           foundFilenames.push(filename);
         }
       }
     }
-    console.log(foundFilenames);
 
     const filtered = foundFilenames
       .map((filename) => entries.find((p) => p.filename === filename))

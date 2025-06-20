@@ -6,7 +6,7 @@ import { BlogPostDisplay } from "./components/BlogPostDisplay";
 import { useEntries } from "./contexts/usePosts";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "./components/theme-provider";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
 function AppContent() {

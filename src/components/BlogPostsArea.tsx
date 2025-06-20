@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
 import { BlogPostCard } from "./BlogPostCard";
-
-import type { PostForIndex } from "../../types";
 import { useEntries } from "@/contexts/usePosts";
 
 type BlogPostsAreaProps = {
