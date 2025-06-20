@@ -13,6 +13,20 @@
         "ai"
       ],
       "content": "problem vision wanted semantic search system beyond simple keyword matching so anyone site find relevant posts without knowing exactly ask for. google lots data work off of, don't, so things purely mathematically. however, pure keyword matching isn't great searching way. so semantic searching perfect. technical foundation first thing find, seems best browser. so first thing project set build script runs readme files encodes semantic meanig so later query against encoded meanings model. worked ok... main problem use 20mb model browser anything large slow download, amount context work small. chunking breakthrough switching 40-80 word chunks, markdown characters filler words removed, gave 'search engine' work with. instead trying encode 300 words 300 data points, encode 80 so. accurate results ensued. though wasn't perfect. single word searches didn't always work. hybrid search implementation semantic model worked encoding data list 384 numbers. then, when user types search, run search model use standard cosine simliarity algorithm find similar results. worked alright well, fell short single word searches unusual terms tailwind shadcnui ux interaction design bit ux ui design. went large title hero text, search bar underneath list cards. when type search result, submits search, runs code, returns filtered results. nothing crazy. made search auto clear, everything relies upon constisent style defined index.css file. component state architecture project structure, simple breakdown header, searchbar, blogpostcards, blogpostarea. useposts hook uses zustand central state management. visual polish animations plan using framer motion animate everything soon! key lessons learned learned ton today. learned using ai models browser nodejs project using transformers.js. gained experience design i've designed blog site. bunch debugging trying figure why models wouldn't load turns issue vite, solution either turn off browser caching when using vite dev build project serve using different tool??. fun!"
+    },
+    {
+      "filename": "2025-06-19.md",
+      "title": "Upgrading to FlexSearch and Adding UI Refinements",
+      "date": "2025-06-19T00:00:00.000Z",
+      "tags": [
+        "react",
+        "typescript",
+        "tailwind",
+        "shadcn/ui",
+        "simple-icons"
+      ],
+      "description": "test",
+      "content": "migrating semantic search flexsearch messing around semantic search yestarday, realized running encoder browser simply not powerful enough give satisfying search results. rent server run dedicated cpugpu larger model worth it. don't plan spending money yet, imagine people looking blog know they're looking for, i'm opting just having tags basic keyword search. that's why migrated flexsearch. blog post pre-parsed remove stopwords markdown syntax. however, just load create local flexsearch document search queried instead. simpler work with, gives good results. means will not benefits semantic search system, so people will know want find spelt right, fine now. implementing technology tag icons added nice little tech tag icons too. post few tags represent technologies used post, i'm going so when click filters posts technologies. perfect anyone curious experience with. nice transition everything! search ux added basic ux features. search bar, bit text comes down tells last query are, little x button clearing search. animates down smooth way. overall, happy it. improving accessibility theme support switched entire website darkmode orange tint. colors look nice. deployment started working setting github pages deployment, github refuses serve markdown files. i'm going figure either around whatever causing this, serve blog somewhere else."
     }
   ],
   "index": "title.1.map"
