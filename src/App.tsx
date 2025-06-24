@@ -2,6 +2,7 @@ import "./App.css";
 import { Input } from "@/components/ui/input";
 import { BlogPostsArea } from "./components/BlogPostsArea";
 import { BlogPostDisplay } from "./components/BlogPostDisplay";
+import { SelectedTagsDisplay } from "./components/SelectedTagsDisplay";
 
 import { useEntries } from "./contexts/usePosts";
 import { useEffect, useState } from "react";
@@ -29,9 +30,9 @@ function AppContent() {
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-8 w-full justify-center items-start relative">
-        <div className="flex flex-col gap-8 w-full max-w-[640px]">
-          <div className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-4 w-full max-w-[640px]">
+          <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-2 w-full">
               <Input
                 type="search"
                 placeholder="Search posts, technologies, or concepts..."
@@ -63,6 +64,7 @@ function AppContent() {
                   <X size={12} />
                 </button>
               </motion.div>
+              <SelectedTagsDisplay />
             </div>
 
             <BlogPostsArea />

@@ -56,16 +56,36 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
 }
 
 function BlogPostTags({ tags }: { tags: string[] }) {
+  const { toggleTag, selectedTags } = useEntries();
   return (
     <div className="flex flex-wrap gap-1">
       {tags.map((tag) => {
-        return <StackItem key={tag} name={tag} />;
+        const isSelected = selectedTags.includes(tag.toLowerCase());
+        return (
+          <StackItem
+            key={tag}
+            name={tag}
+            selected={isSelected}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleTag(tag);
+            }}
+          />
+        );
       })}
     </div>
   );
 }
 
-function StackItem({ name }: { name: string }) {
+function StackItem({
+  name,
+  selected,
+  onClick,
+}: {
+  name: string;
+  selected?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
+}) {
   const IconComponent =
     name.toLowerCase() in IconMap
       ? IconMap[name.toLowerCase()]
@@ -76,7 +96,11 @@ function StackItem({ name }: { name: string }) {
       whileHover="animate"
       whileTap="animate"
       initial="initial"
-      className="flex items-start justify-start rounded-full text-xs p-1 -mr-2 hover:z-10 bg-primary shadow-lg"
+      className={`flex items-start justify-start rounded-full text-xs p-1 -mr-2 hover:z-10 shadow-lg ${
+        selected ? "bg-black text-white" : "bg-primary text-foreground"
+      }`}
+      onClick={onClick}
+      style={{ cursor: onClick ? "pointer" : undefined }}
     >
       <motion.span
         variants={{
@@ -85,7 +109,7 @@ function StackItem({ name }: { name: string }) {
         transition={{
           type: "spring",
         }}
-        className="w-4 h-4 shrink-0 text-center flex items-center justify-center text-foreground"
+        className="w-4 h-4 shrink-0 text-center flex items-center justify-center"
       >
         <div className="w-3.5 h-3.5 flex items-center justify-center">
           <IconComponent size={14} />
@@ -97,7 +121,7 @@ function StackItem({ name }: { name: string }) {
           animate: { width: "auto" },
           exit: { width: 0 },
         }}
-        className="overflow-hidden whitespace-nowrap text-foreground"
+        className="overflow-hidden whitespace-nowrap"
       >
         {name}
       </motion.span>

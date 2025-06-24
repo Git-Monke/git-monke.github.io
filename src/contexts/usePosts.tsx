@@ -11,10 +11,13 @@ interface UsePostsStore {
   error: string | null;
   searchQuery: string;
   flexIndex: Document | null;
+  selectedTags: string[];
 
   fetchPosts: () => Promise<void>;
   searchPosts: (query: string) => Promise<void>;
   selectPost: (filename: string | null) => void;
+  toggleTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
 }
 
 export const useEntries = create<UsePostsStore>((set, get) => ({
@@ -26,6 +29,7 @@ export const useEntries = create<UsePostsStore>((set, get) => ({
   error: null,
   searchQuery: "",
   flexIndex: null,
+  selectedTags: [],
 
   fetchPosts: async () => {
     set((state) => ({ ...state, isLoading: true, error: null }));
@@ -39,7 +43,7 @@ export const useEntries = create<UsePostsStore>((set, get) => ({
       // Sort posts by date descending
       posts.sort(
         (a: PostForIndex, b: PostForIndex) =>
-          new Date(b.date).getTime() - new Date(a.date).getTime(),
+          new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
       // Rebuild FlexSearch index from posts array
@@ -81,33 +85,35 @@ export const useEntries = create<UsePostsStore>((set, get) => ({
 
   searchPosts: async (query: string) => {
     set((state) => ({ ...state, searchQuery: query, isSearching: true }));
-    const { entries, flexIndex } = get();
+    const { entries, flexIndex, selectedTags } = get();
 
-    if (!query.trim() || !flexIndex) {
-      set((state) => ({
-        ...state,
-        filteredEntries: entries,
-        isSearching: false,
-      }));
-      return;
-    }
-    const result = flexIndex.search(query, { enrich: true });
-    const foundFilenames: string[] = [];
+    let filtered: PostForIndex[] = entries;
 
-    // Process the enriched search results
-    for (const fieldResult of result) {
-      for (const hit of fieldResult.result) {
-        // Extract the id (filename) from each hit object
-        const filename = typeof hit === "string" ? hit : hit.id.toString();
-        if (!foundFilenames.includes(filename)) {
-          foundFilenames.push(filename);
+    if (query.trim() && flexIndex) {
+      const result = flexIndex.search(query, { enrich: true });
+      const foundFilenames: string[] = [];
+      for (const fieldResult of result) {
+        for (const hit of fieldResult.result) {
+          const filename = typeof hit === "string" ? hit : hit.id.toString();
+          if (!foundFilenames.includes(filename)) {
+            foundFilenames.push(filename);
+          }
         }
       }
+      filtered = foundFilenames
+        .map((filename) => entries.find((p) => p.filename === filename))
+        .filter(Boolean) as PostForIndex[];
     }
 
-    const filtered = foundFilenames
-      .map((filename) => entries.find((p) => p.filename === filename))
-      .filter(Boolean) as PostForIndex[];
+    // Filter by selectedTags (AND logic: must contain ALL selected tags)
+    // If any tags are selected, only show posts that contain ALL selected tags
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((post) =>
+        selectedTags.every((tag) =>
+          post.tags.map((t) => t.toLowerCase()).includes(tag)
+        )
+      );
+    }
 
     set((state) => ({
       ...state,
@@ -123,6 +129,35 @@ export const useEntries = create<UsePostsStore>((set, get) => ({
       }
       const post = state.entries.find((p) => p.filename === filename) || null;
       return { ...state, selectedPost: post };
+    });
+  },
+
+  toggleTag: (tag: string) => {
+    set((state) => {
+      const tagLower = tag.toLowerCase();
+      const isSelected = state.selectedTags.includes(tagLower);
+      const newTags = isSelected
+        ? state.selectedTags.filter((t) => t !== tagLower)
+        : [...state.selectedTags, tagLower];
+      // After updating selectedTags, re-run filtering
+      setTimeout(() => get().searchPosts(get().searchQuery), 0);
+      return {
+        ...state,
+        selectedTags: newTags,
+      };
+    });
+  },
+
+  removeTag: (tag: string) => {
+    set((state) => {
+      const tagLower = tag.toLowerCase();
+      const newTags = state.selectedTags.filter((t) => t !== tagLower);
+      // After updating selectedTags, re-run filtering
+      setTimeout(() => get().searchPosts(get().searchQuery), 0);
+      return {
+        ...state,
+        selectedTags: newTags,
+      };
     });
   },
 }));

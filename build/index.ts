@@ -21,8 +21,7 @@ import FlexSearch from "flexsearch";
 const POSTS_DIR = path.join(
   path.dirname(new URL(import.meta.url).pathname),
   "..",
-  "docs",
-  "assets",
+  "posts",
 );
 
 /**
@@ -135,6 +134,23 @@ async function main() {
   console.log(
     `Wrote FlexSearch index and metadata for ${postsMeta.length} post(s) to ${outPath}`,
   );
+
+  // --- Copy .md files from posts to public as .html files ---
+  const PUBLIC_DIR = path.join(
+    path.dirname(new URL(import.meta.url).pathname),
+    "..",
+    "public",
+  );
+  if (!fs.existsSync(PUBLIC_DIR)) {
+    fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+  }
+  const mdFiles = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"));
+  for (const mdFile of mdFiles) {
+    const srcPath = path.join(POSTS_DIR, mdFile);
+    const destPath = path.join(PUBLIC_DIR, mdFile.replace(/\.md$/, ".html"));
+    fs.copyFileSync(srcPath, destPath);
+    console.log(`Copied ${mdFile} to public as ${path.basename(destPath)}`);
+  }
 }
 
 main();

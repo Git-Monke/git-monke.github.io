@@ -1,33 +1,38 @@
 # Changelog
 
-## 2025-06-21
+## 2025-06-20
 
 ### Added
+
+- During build, all `.md` files in `posts` are now copied to the `public` directory as `.html` files (contents unchanged, just extension swapped). Existing `.html` files with the same name are overwritten.
+- Added icons for new technology tags: Model Context Protocol (MCP), React, TypeScript, Express.js, SQLite, WebSockets, and Node.js to the IconMap utility for better visual representation in blog post tags.
+
+## 2025-06-19
+
+### Improved
+
+- Enhanced tag hover animation with consistent icon sizing and better transitions.
+- Fixed search UI with clearer visual feedback on current search query.
+- Optimized tag rendering for better performance and consistency.
+
+### Added
+
+- Added smooth animation to BlogPostDisplay with Framer Motion, creating a seamless transition when blog posts change.
+- Created specialized BlogPostTags component with interactive, expanding tags that reveal their full text on hover.
+- Implemented animated tag overlap with single-character display that expands on hover to show full tag name.
 - Added technology icons to blog post tags using simple-icons library.
 - Implemented "Showing results for X" feature with clear button below search input.
 - Created IconMap utility to map tag names to technology icons.
 - Added fallback icon display (Frown) when a matching icon isn't found.
 
-### Improved
-- Enhanced tag hover animation with consistent icon sizing and better transitions.
-- Fixed search UI with clearer visual feedback on current search query.
-- Optimized tag rendering for better performance and consistency.
-
-## 2025-06-20
-
-### Added
-- Added smooth animation to BlogPostDisplay with Framer Motion, creating a seamless transition when blog posts change.
-- Created specialized BlogPostTags component with interactive, expanding tags that reveal their full text on hover.
-- Implemented animated tag overlap with single-character display that expands on hover to show full tag name.
-
 ### Changed
+
 - Fixed markdown rendering in dark mode by updating typography classes and removing conflicting styles.
 - Improved FlexSearch implementation by rebuilding the index on the client side instead of using the exported index.
 - Updated BlogPostCard to use the new tag animation system for better visual feedback.
 
-## 2025-06-19
-
 ### Changed
+
 - Migrated build process from semantic search/embeddings to FlexSearch keyword index.
 - Removed all embedding logic and dependencies from build scripts.
 - Build now outputs `flexsearch.json` containing both post metadata and exported FlexSearch index for fast client-side loading.
@@ -39,33 +44,40 @@
 ## 2025-06-18
 
 ### Changed
+
 - Updated BlogPostDisplay component to use PostWithEmbedding type directly
 - Simplified BlogPostDisplay by removing redundant metadata fetching
 - Improved post display performance by using pre-loaded data from context
 
 ### Fixed
+
 - Embedding generation (both build and browser) now strips all markdown and non-text characters (except basic grammar) before encoding for improved semantic accuracy.
 
 ### Changed
+
 - Embeddings are now generated per chunk (40–80 words) instead of per entire post, improving semantic search for phrase-level queries.
 - `PostWithEmbedding.embedding` type changed from `number[]` to `number[][]` to reflect chunked embeddings.
 - Search now uses the highest similarity from all chunk embeddings for each post.
 - Each post now includes a `content` field containing only meaningful, non-stopword tokens from the markdown body, for efficient and accurate keyword search.
 
 ### Improved
+
 - Keyword search now uses the cleaned content field (with stopwords and markdown artifacts removed) for much higher quality results, in addition to semantic similarity.
 
 ### Added
+
 - Implemented search-on-enter for the main search input in `App.tsx`:
   - Search now triggers only when pressing Enter in the input field.
   - The input field clears itself after searching.
 - Implemented semantic search functionality:
+
   - Added cosine similarity search using post embeddings
   - Integrated with @xenova/transformers for real-time query embedding
   - Added similarity threshold filtering for better results
   - Added loading state for search operations
 
 - Enhanced usePosts hook with improved state management:
+
   - Added filteredEntries state for search results
   - Added selectedPost state for tracking selected posts
   - Implemented basic search filtering by title, description, and tags

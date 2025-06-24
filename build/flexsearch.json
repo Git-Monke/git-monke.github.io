@@ -1,16 +1,33 @@
 {
   "posts": [
     {
+      "filename": "2025-06-20.md",
+      "title": "Building a Modern Grocery App with Flutter and Supabase",
+      "description": "A deep dive into creating a collaborative grocery list app using Flutter, Supabase, and Riverpod - covering authentication, real-time data, and modern UI patterns",
+      "date": "2025-06-21T00:00:00.000Z",
+      "tags": [
+        "Flutter",
+        "Supabase",
+        "Riverpod",
+        "Dart",
+        "PostgreSQL",
+        "Material Design",
+        "State Management",
+        "Mobile Development"
+      ],
+      "content": "https:www.youtube.comembedw7ei3jqiajm authentication user management first thing one first things decided work auth. setting database making sure persistent state managed backend important thing beggining work app features. integrating database later complex requires lot refactoring, so starting database chosen save lot time down road. ended using riverpod global state management. provider files manage riverpod state, repostiroy files actually requests backend. ui elements use provider functions expose, repositories behind scene actually format data requests handle errors. second thing added deep magic links, so sign google email just few clicks. couldn't think reason username password option. when new user signs up, supabase trigger automatically creates new entry profiles table creates new list lists table owner. so none done frontend. bug : strange bug though. when signing google, browser refuses close. no idea why, wasted maybe 3 hours trying figure out. ended just ignoring error gives closing manually, sign-in logic works fine. uiux design navigation decided try use shadcn style components themes, flutter. ported shadcn css-file generated tweakcn flutter themeprovider. so nice theme, nice font, integrated mui components. little effort part, super nice visuals pretty quickly. database architecture backend mentioned earlier, i'm using supabase project. first time working sql postgres. absolutely love it... it's simpler firebase docs. reason use firebaes moving forward beause free tier so generous. didn't long set profiles table, lists table, list items table, list-members table, recipes table, corresponding indexes row-level security configs. repositories, scaffold set crud operations one app. ai super useful here, scaffold build repetitive simple functions lots edge cases, super quickly."
+    },
+    {
       "filename": "2025-06-18.md",
       "date": "2025-06-18T00:00:00.000Z",
       "title": "Building Semantic Search for My Blog: A Day of Embeddings and UX Polish",
       "description": "Implementing semantic search with vector embeddings, and creating a polished search experience for my personal blog",
       "tags": [
-        "react",
-        "typescript",
-        "tailwind",
+        "React",
+        "TypeScript",
+        "Tailwind",
         "shadcn/ui",
-        "ai"
+        "AI"
       ],
       "content": "problem vision wanted semantic search system beyond simple keyword matching so anyone site find relevant posts without knowing exactly ask for. google lots data work off of, don't, so things purely mathematically. however, pure keyword matching isn't great searching way. so semantic searching perfect. technical foundation first thing find, seems best browser. so first thing project set build script runs readme files encodes semantic meanig so later query against encoded meanings model. worked ok... main problem use 20mb model browser anything large slow download, amount context work small. chunking breakthrough switching 40-80 word chunks, markdown characters filler words removed, gave 'search engine' work with. instead trying encode 300 words 300 data points, encode 80 so. accurate results ensued. though wasn't perfect. single word searches didn't always work. hybrid search implementation semantic model worked encoding data list 384 numbers. then, when user types search, run search model use standard cosine simliarity algorithm find similar results. worked alright well, fell short single word searches unusual terms tailwind shadcnui ux interaction design bit ux ui design. went large title hero text, search bar underneath list cards. when type search result, submits search, runs code, returns filtered results. nothing crazy. made search auto clear, everything relies upon constisent style defined index.css file. component state architecture project structure, simple breakdown header, searchbar, blogpostcards, blogpostarea. useposts hook uses zustand central state management. visual polish animations plan using framer motion animate everything soon! key lessons learned learned ton today. learned using ai models browser nodejs project using transformers.js. gained experience design i've designed blog site. bunch debugging trying figure why models wouldn't load turns issue vite, solution either turn off browser caching when using vite dev build project serve using different tool??. fun!"
     },
@@ -20,13 +37,30 @@
       "date": "2025-06-19T00:00:00.000Z",
       "description": "Migrated to pure flex-search, implemented little tags, improved search UX, and struggled with getting GitHub Pages to serve md files.",
       "tags": [
-        "react",
-        "typescript",
-        "tailwind",
+        "React",
+        "TypeScript",
+        "Tailwind",
         "shadcn/ui",
         "simple-icons"
       ],
       "content": "https:www.youtube.comembed6eqxrjksctc migrating semantic search flexsearch messing around semantic search yestarday, realized running encoder browser simply not powerful enough give satisfying search results. rent server run dedicated cpugpu larger model worth it. don't plan spending money yet, imagine people looking blog know they're looking for, i'm opting just having tags basic keyword search. that's why migrated flexsearch. blog post pre-parsed remove stopwords markdown syntax. however, just load create local flexsearch document search queried instead. simpler work with, gives good results. means will not benefits semantic search system, so people will know want find spelt right, fine now. implementing technology tag icons added nice little tech tag icons too. post few tags represent technologies used post, i'm going so when click filters posts technologies. perfect anyone curious experience with. nice transition everything! search ux added basic ux features. search bar, bit text comes down tells last query are, little x button clearing search. animates down smooth way. overall, happy it. improving accessibility theme support switched entire website darkmode orange tint. colors look nice. deployment started working setting github pages deployment, github refuses serve markdown files. i'm going figure either around whatever causing this, serve blog somewhere else."
+    },
+    {
+      "filename": "2025-06-22.md",
+      "title": "Building a Modern Checklist App: MCP Integration, Modular Architecture, and Real-Time Updates",
+      "description": "A deep dive into the development journey of a full-stack checklist application featuring Model Context Protocol (MCP) integration, modular React components, auto-dependency management, and real-time WebSocket updates.",
+      "date": "2025-06-23T00:00:00.000Z",
+      "tags": [
+        "Model Context Protocol (MCP)",
+        "React",
+        "TypeScript",
+        "Zustand",
+        "Express.js",
+        "SQLite",
+        "WebSockets",
+        "Node.js"
+      ],
+      "content": "https:youtu.begrzyyppin0k building modern checklist app: mcp integration, modular architecture, real-time updates overview decided quick mcp server checklist app. found coding agent hard time doing complex things. forget, stuck loops. checklist app allows agent create modify list things do. read list run down it. helps guide it, producing accurate results fewer bugs. use first asking create list steps itself. check list sure items sense. ask run down list, checking points. ever makes mistake, just nudge right direction. breaking things down first checking regular intervals, agent produce better code, complete larger features faster. point, architech developer. key feature really wanted infinitely expandable items. items sub-items listed underneath them. task complex, ask agent break down even further. go forever, meaning arbitrariliy complex features planned thoroughly starting record time too. tech stack simple. sqlite database, express expose crud operations. vite typescript swc shadnc tailwind website, websockets realtime updates, node.js model context protocol. means three servers run when mcp used. one db, one website, one model context protocol. however, central script manages installation packages running programs. model context protocol mcp server implementation model context protocol almost entirely done ai. series repetitive function definitions lots data-formatting, validation, error handling. kind stuff ai perfect doing. later refactor heavily, using new tool able cut down 900 line file neatly organized project almost purely ai. something not done without something guide agent. database implementation database easiest part whole process. went sqlite, it's more-than fast enough everything going run locally anyway. db structure simple too. lists, list list items. list item optionally parent. when user fetches list data, simply list items belonging list, convert flat list list items tree structure easily rendered website using recursive react component. website implementation part took longest, made websites point, pretty fast. took maybe 7 hours. first, set data fetching websocket support. whenever database server recives request update data, pings websocket connections change. website able update real time when agent makes changes list data. built simple ui visualize interact lists."
     }
   ],
   "index": "title.1.map"
