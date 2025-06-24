@@ -1,0 +1,55 @@
+---
+title: "Building a Modern Grocery App with Flutter and Supabase"
+description: "A deep dive into creating a collaborative grocery list app using Flutter, Supabase, and Riverpod - covering authentication, real-time data, and modern UI patterns"
+date: 2025-06-21
+tags:
+  [
+    "Flutter",
+    "Supabase",
+    "Riverpod",
+    "Dart",
+    "PostgreSQL",
+    "Material Design",
+    "State Management",
+    "Mobile Development",
+  ]
+---
+
+https://www.youtube.com/embed/w7eI3jQiAjM
+
+## Authentication & User Management
+
+### First Thing
+
+One of the first things I decided to work on was auth. Setting up the database and making sure
+all persistent state was managed in the backend was an important thing to do before beggining work on
+any app features. Integrating a database later is complex and requires a lot of refactoring, so starting
+with the database was chosen to save a lot of time down the road. I ended up using riverpod for
+global state management. I have provider files which manage riverpod state, and repostiroy files which
+actually make requests to the backend. UI elements use the provider and the functions they expose, and the repositories behind the scene actually format the data and make the requests + handle errors.
+
+### Second Thing
+
+I also added deep + magic links, so you can sign in with both google or email in just a few clicks. I couldn't think of any reason to have a username and password option.
+When a new user signs up, I have a supabase trigger that automatically creates a new entry in a profiles
+table and then creates a new list in the lists table with them as the owner. So none of that has to be
+done in the frontend.
+
+### Bug :(
+
+There was a strange bug though. When signing in with google, the browser refuses to close. I still have no idea why, and wasted maybe 3 hours trying to figure it out. I ended up just ignoring the error it gives and closing it manually, since all the sign-in logic works fine.
+
+## UI/UX Design & Navigation
+
+I decided to try and use shadcn style components and themes, but in flutter. I ported over
+a shadcn css-file I generated at tweakcn into a flutter ThemeProvider. So now I had a nice theme,
+nice font, integrated with MUI components. Very little effort on my part, but super nice visuals pretty quickly.
+
+## Database Architecture & Backend
+
+As mentioned earlier, I'm using supabase for this project. This is my first time working with SQL or Postgres. I absolutely love it... It's way simpler than firebase docs. The only reason I would use
+firebaes moving forward is beause their free tier is so generous. It didn't take long for me to set up
+a profiles table, lists table, list items table, list-members table, and recipes table, all with their
+corresponding indexes and row-level security configs.
+
+In the repositories, I have a scaffold set up for all the CRUD operations one would have to do for this app. AI is super useful here, since it can scaffold and build many of these repetitive and simple functions (which have lots of edge cases), super quickly.
